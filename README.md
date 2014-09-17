@@ -15,8 +15,7 @@ Contents:
 * `shuffle_data.m`: shuffle the observations of the sample dataset.
 * `Rt2_fit.m`: compute the coefficient of determination R2.
 * `Friedman_dataset.txt`: sample dataset, with 10 candidate inputs (first 10 columns) and 1 output (last column). The observations, arranged by rows, are 250.
-* `rtenslearn_c.c`: modified source code for interfacing rtree-c Extra-Trees with this IIS package. 
-* `README`: text file containing instructions for compiling the C source code
+* `README`: text file containing step-by-step instructions for modifying and compiling the C source code.
 
 
 Based on work from the following papers:
