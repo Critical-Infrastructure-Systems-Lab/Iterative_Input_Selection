@@ -14,7 +14,7 @@ Contents:
 * `shuffle_data.m`: shuffle the observations of the sample dataset.
 * `Rt2_fit.m`: compute the coefficient of determination R2.
 * `Friedman_dataset.txt`: sample dataset, with 10 candidate inputs (first 10 columns) and 1 output (last column). The observations, arranged by rows, are 250.
-* `README`: text file containing step-by-step instructions for modifying and compiling the C source code.
+* `README.txt`: text file containing step-by-step instructions for modifying and compiling the C source code.
 
 
 Based on work from the following papers:
