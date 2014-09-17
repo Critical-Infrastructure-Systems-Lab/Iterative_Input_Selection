@@ -11,7 +11,6 @@ Contents:
 * `input_ranking.m`: rank the input variables.
 * `iterative_input_selection.m`: run the IIS algorithm.
 * `perform_IIS.m`: wrapper function used to launch iterative_input_selection.m
-* `visualize_inputSel.m`: visualize the results obtained with multiple runs of the IIS algorithm.
 * `shuffle_data.m`: shuffle the observations of the sample dataset.
 * `Rt2_fit.m`: compute the coefficient of determination R2.
 * `Friedman_dataset.txt`: sample dataset, with 10 candidate inputs (first 10 columns) and 1 output (last column). The observations, arranged by rows, are 250.
