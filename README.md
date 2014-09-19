@@ -25,9 +25,17 @@ Based on work from the following papers:
 - Galelli, S., and A. Castelletti (2013b), Assessing the predictive capability of randomized tree-based ensembles in streamflow modelling, Hydrol. Earth Syst. Sci., 17, 2669-2684 ([Link to Paper](http://www.hydrol-earth-syst-sci.net/17/2669/2013/hess-17-2669-2013.html)).
 - Geurts, P., D. Ernst, and L. Wehenkel (2006), Extremely randomized trees, Mach. Learn., 63(1), 3-42 ([Link to Paper](http://link.springer.com/article/10.1007/s10994-006-6226-1)).
 
-Acknowledgements: to Dr. Matteo Giuliani (Politecnico di Milano) and Riccardo Taormina (Hong Kong Polytechnic University).
+Acknowledgements: to Dr. Matteo Giuliani (Politecnico di Milano).
 
-Copyright 2014 Stefano Galelli, Assistant Professor, Singapore University of Technology and Design, E-mail: stefano_galelli@sutd.edu.sg ([Link to Homepage](http://people.sutd.edu.sg/~stefano_galelli/index.html)).
+
+Copyright 2014 Stefano Galelli and Riccardo Taormina
+
+Prof. Galelli is Assistant Professor, Singapore University of Technology and Design
+stefano_galelli@sutd.edu.sg
+http://people.sutd.edu.sg/~stefano_galelli/index.html
+
+Riccardo Taormina is a Ph.D. candidate at the Hong Kong Polytechnic University
+riccardo.taormina@connect.polyu.hk
 
 This file is part of MATLAB_IterativeInputSelection_with_Rtree-c
 
