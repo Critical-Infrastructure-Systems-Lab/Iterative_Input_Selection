@@ -13,8 +13,10 @@ Contents:
 * `perform_IIS.m`: wrapper function used to launch iterative_input_selection.m
 * `shuffle_data.m`: shuffle the observations of the sample dataset.
 * `Rt2_fit.m`: compute the coefficient of determination R2.
+* `visualize_inputSel.m` : visualize the results obtained with multiple runs of the IIS algorithm.
 * `Friedman_dataset.txt`: sample dataset, with 10 candidate inputs (first 10 columns) and 1 output (last column). The observations, arranged by rows, are 250.
-* `README.txt`: text file containing step-by-step instructions for modifying and compiling the C source code.
+* `INSTALL.txt`: text file containing step-by-step instructions for modifying and compiling the C source code.
+
 
 
 Based on work from the following papers:
