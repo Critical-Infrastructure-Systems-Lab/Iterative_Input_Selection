@@ -1,4 +1,4 @@
-function result = perform_IIS(data,M,nmin,ns,p,epsilon,max_iter,flag,verbose)
+function result = perform_IIS(data,M,nmin,ns,p,epsilon,max_iter,flag,verbose,Vflag)
 
 % This function is a wrapper around iterative_input_selection.m,   
 % the function implementing the IIS technique using Extra-Trees.                                                         
@@ -19,6 +19,10 @@ function result = perform_IIS(data,M,nmin,ns,p,epsilon,max_iter,flag,verbose)
 % max_iter          = maximum number of iterations;   
 %
 % verbose           = 0 for silent run. 1 for verbose mode 
+%
+% Vflag     = selection of the type of validation, 
+%               1 = k-fold(default)
+%               2= repeated random sub-sampling
 %
 % Outputs
 % result   = structure containing the result for each iteration
@@ -41,9 +45,9 @@ data_sh = shuffle_data(data);
 
 % Run the IIS algorithm
 if verbose == 0
-    evalc('result = iterative_input_selection(data_sh,M,nmin,ns,p,epsilon,max_iter)');
+    evalc('result = iterative_input_selection(data_sh,M,nmin,ns,p,epsilon,max_iter,Vflag)');
 else
-    result = iterative_input_selection(data_sh,M,nmin,ns,p,epsilon,max_iter);
+    result = iterative_input_selection(data_sh,M,nmin,ns,p,epsilon,max_iter,Vflag);
 end
 
 

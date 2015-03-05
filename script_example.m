@@ -9,7 +9,7 @@
 %
 %
 %
-% Copyright 2014 Stefano Galelli and Riccardo Taormina
+% Copyright 2014 Stefano Galelli, Riccardo Taormina, and Matteo Giuliani
 %
 % Prof. Galelli is Assistant Professor, Singapore University of Technology and Design
 % stefano_galelli@sutd.edu.sg
@@ -17,6 +17,10 @@
 %
 % Riccardo Taormina is a Ph.D. candidate at the Hong Kong Polytechnic University
 % riccardo.taormina@connect.polyu.hk
+%
+% Matteo Giuliani is a research fellow at Politecnico di Milano
+% matteo.giuliani@polimi.it
+% http://giuliani.faculty.polimi.it
 %
 % This file is part of MATLAB_IterativeInputSelection_with_RTree-c.
 % 
@@ -38,6 +42,8 @@
 %% Set workspace
 clear
 clc
+
+addpath('./RT');
 
 %% Load and prepare data
 
@@ -167,7 +173,10 @@ verbose  = 1;  % 0 for silent run / 1 for verbose mode
 % Launch the IIS
 result_iis = perform_IIS(data,M,nmin,ns,p,epsilon,...
     max_iter,flag,verbose)
-
+% for running the IIS algorithm with repeated random sub-sampling
+% validation, the last input must be = 2:
+% [result_iis] = (data,M,nmin,ns,p,epsilon,...
+%    max_iter,flag,verbose,2)
 % Report exit condition
 disp(result_iis.exit_condition);
 

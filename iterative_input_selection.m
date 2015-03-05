@@ -1,5 +1,5 @@
 
-function [result] = iterative_input_selection(subset,M,nmin,ns,p,epsilon,max_iter)
+function [result] = iterative_input_selection(subset,M,nmin,ns,p,epsilon,max_iter,Vflag)
 
 % This function implements the IIS algorithm
 %
@@ -11,10 +11,47 @@ function [result] = iterative_input_selection(subset,M,nmin,ns,p,epsilon,max_ite
 %            candidate inputs).
 % epsilon  = tolerance
 % max_iter = maximum number of iterations
+% Vflag     = selection of the type of validation, 
+%               1 = k-fold(default)
+%               2= repeated random sub-sampling
 %
 % Output
-% result   = structure containing the result for each iteration%
+% result   = structure containing the result for each iteration
+%
+%
+% Copyright 2014 Stefano Galelli and Matteo Giuliani
+% Assistant Professor, Singapore University of Technology and Design
+% stefano_galelli@sutd.edu.sg
+% http://people.sutd.edu.sg/~stefano_galelli/index.html
+% Research Fellow, Politecnico di Milano
+% matteo.giuliani@polimi.it
+% http://giuliani.faculty.polimi.it
+%
+% Please refer to README.txt for further information.
+%
+%
+% This file is part of MATLAB_IterativeInputSelection.
+% 
+%     MATLAB_IterativeInputSelection is free software: you can redistribute 
+%     it and/or modify it under the terms of the GNU General Public License 
+%     as published by the Free Software Foundation, either version 3 of the 
+%     License, or (at your option) any later version.     
+% 
+%     This code is distributed in the hope that it will be useful,
+%     but WITHOUT ANY WARRANTY; without even the implied warranty of
+%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%     GNU General Public License for more details.
+% 
+%     You should have received a copy of the GNU General Public License
+%     along with MATLAB_IterativeInputSelection.  
+%     If not, see <http://www.gnu.org/licenses/>.
+% 
 
+if nargin<8
+    f = 1 ;
+else
+    f = Vflag ; 
+end
 
 % 0) SET THE PARAMETERS
 
@@ -64,7 +101,11 @@ while (diff > epsilon) && (iter <= max_iter)
     features = ranking(1:p,2);                             % p features to be considered           
     performance = zeros(p,1);	                           % initialize a vector for the performance of the p SISO models%			     
     for i = 1:p
+        if f == 1
         [siso_model] = crossvalidation_extra_tree_ensemble([subset(:,features(i)) rank_output],M,1,nmin,ns,0);        
+        else
+        [siso_model] = repeatedRandomSubSamplingValidation_extra_tree_ensemble([subset(:,features(i)) rank_output],M,1,nmin,ns,0);        
+        end
 		performance(i) = siso_model.cross_validation.performance.Rt2_val_pred_mean;
     end
     eval(['result.iter_' num2str(iter) '.SISO' '=' '[features performance];']);
@@ -79,15 +120,20 @@ while (diff > epsilon) && (iter <= max_iter)
     % Check the exit condition
     if (all(miso_input - best_siso_input) == 0) 
         result.exit_condition = 'An input variable was selected twice';
+        result.iters_done = iter;
         return
     end
         
 	% Build a MISO model with the selected inputs	
     disp('Evaluating MISO model:');
 	miso_input = [miso_input best_siso_input];				 
-	k = length(miso_input);				 
+	k = length(miso_input);	
+    if f==1
 	[miso_model] = crossvalidation_extra_tree_ensemble([subset(:,miso_input) miso_output],M,k,nmin,ns,1);				 
-	eval(['miso_model_' num2str(iter) '= miso_model;']);
+    else
+    [miso_model] = repeatedRandomSubSamplingValidation_extra_tree_ensemble([subset(:,miso_input) miso_output],M,k,nmin,ns,1);
+    end
+    eval(['miso_model_' num2str(iter) '= miso_model;']);
     eval(['result.iter_' num2str(iter) '.MISO' '=' 'miso_model;']);
     disp(miso_model.cross_validation.performance.Rt2_val_pred_mean);
 	
@@ -108,16 +154,17 @@ while (diff > epsilon) && (iter <= max_iter)
     % Check the exit condition
     if iter > max_iter 
         result.exit_condition = 'The maximum number of iterations was reached'; 
+        result.iters_done = iter;
     end
     if diff <= epsilon  
-        result.exit_condition = 'The tolerance epsilon was reached';            
+        result.exit_condition = 'The tolerance epsilon was reached';    
+        result.iters_done = iter;
     end
     
 end
 
     
-
-% This code has been written by Stefano Galelli.
+% This code has been written by Stefano Galelli, Matteo Giuliani
 
 
 
