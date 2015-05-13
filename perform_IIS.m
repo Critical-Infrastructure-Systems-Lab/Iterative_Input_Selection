@@ -1,4 +1,4 @@
-function result = perform_IIS(data,M,nmin,ns,p,epsilon,max_iter,flag,verbose,Vflag)
+function result = perform_IIS(data,M,nmin,ns,p,epsilon,max_iter,Vflag,verbose)
 
 % This function is a wrapper around iterative_input_selection.m,   
 % the function implementing the IIS technique using Extra-Trees.                                                         
