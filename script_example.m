@@ -9,7 +9,7 @@
 %
 %
 %
-% Copyright 2014 Stefano Galelli, Riccardo Taormina, and Matteo Giuliani
+% Copyright 2014 Stefano Galelli and Riccardo Taormina
 %
 % Prof. Galelli is Assistant Professor, Singapore University of Technology and Design
 % stefano_galelli@sutd.edu.sg
@@ -17,10 +17,6 @@
 %
 % Riccardo Taormina is a Ph.D. candidate at the Hong Kong Polytechnic University
 % riccardo.taormina@connect.polyu.hk
-%
-% Matteo Giuliani is a research fellow at Politecnico di Milano
-% matteo.giuliani@polimi.it
-% http://giuliani.faculty.polimi.it
 %
 % This file is part of MATLAB_IterativeInputSelection_with_RTree-c.
 % 
@@ -43,7 +39,6 @@
 clear
 clc
 
-addpath('./RT');
 
 %% Load and prepare data
 
@@ -68,7 +63,6 @@ rtensparam                     = init_extra_trees();
 rtensparam.nbterms             = M;
 rtensparam.rtparam.nmin        = nmin;
 rtensparam.rtparam.extratreesk = k;
-
 
 % Build an ensemble of Extra-Trees and return the predictions on the
 % training and test datasets
@@ -141,6 +135,7 @@ axis([min(data_sh(:,end)) max(data_sh(:,end)) min(data_sh(:,end)) max(data_sh(:,
 xlabel('measured'); ylabel('predicted');
 title('calibration - scatter plot');
 
+
 %% Input ranking
 
 % Shuffle the data
@@ -163,33 +158,33 @@ title('variable ranking - bar plot');
 %% Iterative input selection
 % Set the parameters for IIS
 ns       = 5;  % number of folds for the cross-validation
-p        = 3;  % number of SISO models evaluated at each iteration
+p        = 5;  % number of SISO models evaluated at each iteration
 epsilon  = 0;  % tolerance
 max_iter = 6;  % maximum number of iterations
 verbose  = 1;  % 0 for silent run / 1 for verbose mode 
 
-
-
 % Launch the IIS
 result_iis = perform_IIS(data,M,nmin,ns,p,epsilon,...
     max_iter,flag,verbose)
-% for running the IIS algorithm with repeated random sub-sampling
-% validation, the last input must be = 2:
-% [result_iis] = (data,M,nmin,ns,p,epsilon,...
-%    max_iter,flag,verbose,2)
+
 % Report exit condition
 disp(result_iis.exit_condition);
 
 % Selected variables (by iteration)
+% Determine the number of selected variables
 if strcmp(result_iis.exit_condition,...
         'An input variable was selected twice') == 1
-    nVariables = max_iter - 1;
-else
+    nVariables = length(fieldnames(result_iis)) - 2;
+else if strcmp(result_iis.exit_condition,...
+        'The maximum number of iterations was reached') == 1
     nVariables = max_iter;
-end    
- 
+    else
+        nVariables = length(fieldnames(result_iis)) - 2;
+    end
+end
+% Selected variables
 sel_variables    = nan(nVariables,1);
-for i = 1 : max_iter-1
+for i = 1 : nVariables
     thisIter = ['iter_',num2str(i)];
     sel_variables(i) = result_iis.(thisIter).best_SISO(1);
 end
@@ -204,7 +199,6 @@ deltaR2 = [R2(1) ; diff(R2)];
 
 % Plotting
 figure; 
-
 bar(1:nVariables,deltaR2,'FaceColor','b'); hold on;
 plot(R2,'o-','Color','k','LineWidth',...
     1, 'MarkerSize', 8, 'MarkerFaceColor', 'w',...
@@ -215,6 +209,7 @@ xLabels = arrayfun(@(x) {num2str(x)},sel_variables);
 set(gca,'XTickLabel', xLabels,'Ylim',[0.00 1.0]);
 xlabel('selected variables'); ylabel('R^2');
 title('IIS');
+
 
 %% Multiple runs of the IIS algorithm (with different shuffled datasets)
 
@@ -245,6 +240,7 @@ end
 
 % plot only the first max_iter variables
 [X, R2] = visualize_inputSel(results_iis_n, max_iter, mult_runs, max_iter );
+
 % change colormap
 [X, R2] = visualize_inputSel(results_iis_n, max_iter, mult_runs, max_iter, 'Jet' );
 

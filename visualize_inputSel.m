@@ -68,9 +68,24 @@ end
 % extract results
 sel_variables = nan(Nvar,Nrun);
 R2    = nan(Nvar,Nrun);
+
 for i = 1:Nrun
-    for j = 1:max_iter-1
-        eval(['sel_variables(j,i) = iis_res{',num2str(i),'}.iter_',num2str(j),'.best_SISO(1);'])
+    
+    eval(['result_iis = iis_res{',num2str(i),'};'])
+    
+    if strcmp(result_iis.exit_condition,...
+            'An input variable was selected twice') == 1
+        nVariables = length(fieldnames(result_iis)) - 2;
+    else if strcmp(result_iis.exit_condition,...
+                'The maximum number of iterations was reached') == 1
+            nVariables = max_iter;
+        else
+            nVariables = length(fieldnames(result_iis)) - 2;
+        end
+    end
+    
+    for j = 1: nVariables % max_iter-1
+        eval(['sel_variables(j,i) = iis_res{',num2str(i),'}.iter_',num2str(j),'.best_SISO(1);']);
         eval(['R2(j,i) = iis_res{',num2str(i),'}.iter_',num2str(j),'.MISO.cross_validation.performance.Rt2_val_pred_mean;']);
         if( j>1) && (R2(j,i) < R2(j-1,i)) % check overfitting
             sel_variables(j,i) = nan;
@@ -81,7 +96,7 @@ end
 
 % selected variables and model performance over multiple runs
 X = sel_variables;
-X(isnan(X)) = Nvar+1;
+X(isnan(X)) = 0;
 
 figure; subplot(2,1,1); imagesc(X); colormap(mymap)
 ylabel('input ranking');
