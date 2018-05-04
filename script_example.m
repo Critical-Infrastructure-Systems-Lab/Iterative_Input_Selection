@@ -174,7 +174,7 @@ disp(result_iis.exit_condition);
 % Determine the number of selected variables
 if strcmp(result_iis.exit_condition,...
         'An input variable was selected twice') == 1
-    nVariables = length(fieldnames(result_iis)) - 2;
+    nVariables = length(fieldnames(result_iis)) - 3;
 else if strcmp(result_iis.exit_condition,...
         'The maximum number of iterations was reached') == 1
     nVariables = max_iter;
