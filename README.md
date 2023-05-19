@@ -3,7 +3,7 @@ Iterative_Input_Selection
 
 The Iterative_Input_Selection toolbox is a MatLab / C implementation of the Iterative Input Selection (IIS) algorithm proposed by Galelli and Castelletti (2013). The underlying Extremely Randomized Trees (Extra-Trees) models are implemented using the "rtree-c" code by P. Geurts (http://www.montefiore.ulg.ac.be/~geurts/Software.html) to improve computational efficiency. 
 
-The original version, entirely written in MATLAB, is available at (https://github.com/Critical-Infrastructure-Systems-Lab/MATLAB_Iterative_Input_Selection).
+The original version, entirely written in MATLAB, is available at https://github.com/Critical-Infrastructure-Systems-Lab/MATLAB_Iterative_Input_Selection.
 
 Contents:
 * `script_example.m`: show how to use the available functions on a sample dataset (Friedman_dataset.txt).
@@ -27,19 +27,11 @@ Based on work from the following papers:
 
 Acknowledgements: to Dr. Matteo Giuliani (Politecnico di Milano).
 
-
 Copyright 2014 Stefano Galelli and Riccardo Taormina
 
-Prof. Galelli is Assistant Professor, Singapore University of Technology and Design
-stefano_galelli@sutd.edu.sg
-http://people.sutd.edu.sg/~stefano_galelli/index.html
+This file is part of Iterative_Input_Selection
 
-Riccardo Taormina is a Ph.D. candidate at the Hong Kong Polytechnic University
-riccardo.taormina@connect.polyu.hk
-
-This file is part of MATLAB_IterativeInputSelection_with_Rtree-c
-
-MATLAB_IterativeInputSelection_with_Rtree-c is free software: you can redistribute
+Iterative_Input_Selection is free software: you can redistribute
 it and/or modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
@@ -50,4 +42,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with MATLAB_IterativeInputSelection_with_Rtree-c. If not, see <http://www.gnu.org/licenses/>.
+along with Iterative_Input_Selection. If not, see <http://www.gnu.org/licenses/>.
