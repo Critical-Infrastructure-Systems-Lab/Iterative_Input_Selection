@@ -1,9 +1,9 @@
-MATLAB_IterativeInputSelection_with_Rtree-c
+Iterative_Input_Selection
 ===========================================
 
-The MATLAB_IterativeInputSelection toolbox is a MatLab implementation of the Iterative Input Selection (IIS) algorithm proposed by Galelli and Castelletti (2013). The underlying Extremely Randomized Trees (Extra-Trees) models are implemented using the "rtree-c" code by P. Geurts (http://www.montefiore.ulg.ac.be/~geurts/Software.html) to improve computational efficiency. 
+The Iterative_Input_Selection toolbox is a MatLab / C implementation of the Iterative Input Selection (IIS) algorithm proposed by Galelli and Castelletti (2013). The underlying Extremely Randomized Trees (Extra-Trees) models are implemented using the "rtree-c" code by P. Geurts (http://www.montefiore.ulg.ac.be/~geurts/Software.html) to improve computational efficiency. 
 
-The original version, entirely written in MATLAB, is available at https://github.com/stefano-galelli/MATLAB_IterativeInputSelection/ .
+The original version, entirely written in MATLAB, is available at (https://github.com/Critical-Infrastructure-Systems-Lab/MATLAB_Iterative_Input_Selection).
 
 Contents:
 * `script_example.m`: show how to use the available functions on a sample dataset (Friedman_dataset.txt).
